@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NeonType — A futuristic typing speed tester with real-time stats, virtual keyboard, and stunning glassmorphism UI.">
+    <title>NeonType — Futuristic Typing Tester</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/background.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/stats.css">
+    <link rel="stylesheet" href="css/typing-area.css">
+    <link rel="stylesheet" href="css/keyboard.css">
+    <link rel="stylesheet" href="css/controls.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-overlay"></div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="app-header" id="app-header">
+            <div class="logo">
+                <span class="logo-icon">⌨</span>
+                <h1>Neon<span class="accent">Type</span></h1>
+            </div>
+            <div class="header-controls">
+                <button class="icon-btn" id="sound-toggle" title="Toggle Sound">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                        <path id="sound-waves" d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                    </svg>
+                </button>
+                <div class="difficulty-selector" id="difficulty-selector">
+                    <button class="diff-btn active" data-difficulty="easy">Easy</button>
+                    <button class="diff-btn" data-difficulty="medium">Medium</button>
+                    <button class="diff-btn" data-difficulty="hard">Hard</button>
+                </div>
+                <div class="time-selector" id="time-selector">
+                    <button class="time-btn" data-time="15">15s</button>
+                    <button class="time-btn active" data-time="30">30s</button>
+                    <button class="time-btn" data-time="60">60s</button>
+                    <button class="time-btn" data-time="120">120s</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Panel -->
+        <section class="stats-panel" id="stats-panel">
+            <div class="stat-card" id="stat-wpm">
+                <div class="stat-value" id="wpm-value">0</div>
+                <div class="stat-label">WPM</div>
+                <div class="stat-glow"></div>
+            </div>
+            <div class="stat-card" id="stat-accuracy">
+                <div class="stat-value" id="accuracy-value">100<span class="stat-unit">%</span></div>
+                <div class="stat-label">Accuracy</div>
+                <div class="stat-glow"></div>
+            </div>
+            <div class="stat-card" id="stat-timer">
+                <div class="stat-value" id="timer-value">30</div>
+                <div class="stat-label">Seconds</div>
+                <div class="stat-glow"></div>
+            </div>
+            <div class="stat-card" id="stat-errors">
+                <div class="stat-value" id="errors-value">0</div>
+                <div class="stat-label">Errors</div>
+                <div class="stat-glow"></div>
+            </div>
+        </section>
+
+        <!-- Progress Bar -->
+        <div class="progress-container" id="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+            <div class="progress-glow" id="progress-glow"></div>
+        </div>
+
+        <!-- Typing Area -->
+        <section class="typing-section" id="typing-section">
+            <div class="typing-card">
+                <div class="typing-display" id="typing-display">
+                    <!-- Characters will be injected here -->
+                </div>
+                <div class="typing-input-wrapper">
+                    <input type="text" id="typing-input" class="typing-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Click here and start typing...">
+                </div>
+            </div>
+        </section>
+
+        <!-- Virtual Keyboard -->
+        <section class="keyboard-section" id="keyboard-section">
+            <div class="keyboard-card">
+                <div class="keyboard" id="virtual-keyboard">
+                    <!-- Keyboard rows will be generated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Controls -->
+        <section class="controls-section" id="controls-section">
+            <button class="ctrl-btn restart-btn" id="restart-btn" title="Restart Test">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="1 4 1 10 7 10"/>
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                </svg>
+                <span>Restart</span>
+            </button>
+            <button class="ctrl-btn new-text-btn" id="new-text-btn" title="New Text">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="12" y1="18" x2="12" y2="12"/>
+                    <line x1="9" y1="15" x2="15" y2="15"/>
+                </svg>
+                <span>New Text</span>
+            </button>
+        </section>
+
+        <!-- Results Modal -->
+        <div class="modal-overlay" id="results-modal">
+            <div class="modal-card">
+                <h2 class="modal-title">Test <span class="accent">Complete</span></h2>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-value" id="result-wpm">0</div>
+                        <div class="result-label">WPM</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="result-accuracy">0%</div>
+                        <div class="result-label">Accuracy</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="result-chars">0</div>
+                        <div class="result-label">Characters</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="result-errors">0</div>
+                        <div class="result-label">Errors</div>
+                    </div>
+                </div>
+                <div class="result-rating" id="result-rating"></div>
+                <button class="ctrl-btn restart-btn modal-restart" id="modal-restart-btn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="1 4 1 10 7 10"/>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                    </svg>
+                    <span>Try Again</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/background.js"></script>
+    <script src="js/sounds.js"></script>
+    <script src="js/texts.js"></script>
+    <script src="js/keyboard.js"></script>
+    <script src="js/typing.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
