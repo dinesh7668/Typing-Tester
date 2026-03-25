@@ -1,0 +1,163 @@
+/* ============================
+   NeonType — Typing Area Styles
+   ============================ */
+
+.typing-section {
+    animation: fadeSlideUp 0.6s ease 0.2s both;
+}
+
+.typing-card {
+    background: var(--clr-bg-glass);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    position: relative;
+    overflow: hidden;
+    transition: border-color var(--transition-normal);
+}
+
+.typing-card:focus-within {
+    border-color: var(--clr-border-hover);
+    box-shadow: var(--shadow-glow-sm);
+}
+
+/* Top accent line */
+.typing-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--clr-primary), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.typing-card:focus-within::before {
+    opacity: 1;
+}
+
+/* Text Display */
+.typing-display {
+    font-family: var(--font-body);
+    font-size: 1.3rem;
+    line-height: 2.2;
+    letter-spacing: 0.5px;
+    min-height: 120px;
+    user-select: none;
+    position: relative;
+    word-wrap: break-word;
+    margin-bottom: var(--space-lg);
+}
+
+/* Individual characters */
+.char {
+    position: relative;
+    transition: color 0.1s ease;
+    border-radius: 2px;
+}
+
+.char.correct {
+    color: var(--clr-text-correct);
+}
+
+.char.incorrect {
+    color: var(--clr-text-error);
+    background: rgba(255, 68, 68, 0.15);
+    border-radius: 2px;
+    text-decoration: none;
+    position: relative;
+}
+
+.char.incorrect::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--clr-text-error);
+    border-radius: 1px;
+}
+
+.char.current {
+    color: var(--clr-text-current);
+}
+
+.char.pending {
+    color: var(--clr-text-muted);
+}
+
+/* Blinking Caret */
+.char.current::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 2px;
+    bottom: 2px;
+    width: 2px;
+    background: var(--clr-primary);
+    border-radius: 1px;
+    animation: caretBlink 1s ease-in-out infinite;
+    box-shadow: 0 0 8px var(--clr-primary-glow), 0 0 2px var(--clr-primary);
+}
+
+@keyframes caretBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Hidden Input */
+.typing-input-wrapper {
+    position: relative;
+}
+
+.typing-input {
+    width: 100%;
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-md);
+    font-size: 1rem;
+    color: var(--clr-text);
+    outline: none;
+    transition: all var(--transition-normal);
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: all;
+    height: 1px;
+    overflow: hidden;
+}
+
+.typing-input:focus {
+    border-color: var(--clr-primary);
+}
+
+/* Click overlay to focus input */
+.typing-card {
+    cursor: text;
+}
+
+/* Idle state message */
+.typing-display.idle::after {
+    content: 'Click here to start typing...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--clr-text-muted);
+    font-size: 1rem;
+    font-style: italic;
+    pointer-events: none;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}

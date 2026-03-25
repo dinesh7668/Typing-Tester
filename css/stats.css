@@ -1,0 +1,127 @@
+/* ============================
+   NeonType — Stats Panel Styles
+   ============================ */
+
+.stats-panel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    animation: fadeSlideUp 0.6s ease 0.1s both;
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg) var(--space-md);
+    background: var(--clr-bg-glass);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
+
+.stat-card:hover {
+    border-color: var(--clr-border-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow-sm);
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--clr-text);
+    line-height: 1;
+    transition: all var(--transition-normal);
+}
+
+.stat-unit {
+    font-size: 1rem;
+    color: var(--clr-text-dim);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--clr-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: var(--space-xs);
+    font-family: var(--font-display);
+}
+
+/* Glow effect behind active stat */
+.stat-glow {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 40px;
+    background: var(--clr-primary);
+    filter: blur(30px);
+    opacity: 0;
+    transition: opacity var(--transition-slow);
+    pointer-events: none;
+}
+
+.stat-card.active .stat-glow {
+    opacity: 0.3;
+}
+
+.stat-card.active .stat-value {
+    color: var(--clr-primary);
+    text-shadow: 0 0 15px var(--clr-primary-glow);
+}
+
+/* Progress Bar */
+.progress-container {
+    position: relative;
+    height: 4px;
+    background: var(--clr-surface);
+    border-radius: 2px;
+    overflow: hidden;
+    animation: fadeSlideUp 0.6s ease 0.15s both;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--clr-primary-dark), var(--clr-primary), var(--clr-primary-light));
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.progress-glow {
+    position: absolute;
+    top: -4px;
+    right: 0;
+    width: 60px;
+    height: 12px;
+    background: var(--clr-primary);
+    filter: blur(12px);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+    pointer-events: none;
+}
+
+.progress-container:has(.progress-bar[style*="width"]:not([style*="width: 0"])) .progress-glow {
+    opacity: 0.6;
+}

@@ -1,0 +1,174 @@
+/* ============================
+   NeonType — Controls & Modal Styles
+   ============================ */
+
+.controls-section {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    animation: fadeSlideUp 0.6s ease 0.4s both;
+}
+
+/* Control Buttons */
+.ctrl-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-xl);
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: var(--font-display);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--clr-text-dim);
+    background: var(--clr-bg-glass);
+    backdrop-filter: var(--glass-blur-light);
+    -webkit-backdrop-filter: var(--glass-blur-light);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.ctrl-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, var(--clr-primary-subtle));
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.ctrl-btn:hover {
+    color: var(--clr-primary);
+    border-color: var(--clr-border-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow-sm);
+}
+
+.ctrl-btn:hover::before {
+    opacity: 1;
+}
+
+.ctrl-btn:active {
+    transform: translateY(0);
+}
+
+.ctrl-btn .icon {
+    position: relative;
+    z-index: 1;
+}
+
+.ctrl-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== Results Modal ===== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-card {
+    background: var(--clr-bg-card);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: var(--shadow-card), var(--shadow-glow-lg);
+    transform: translateY(30px) scale(0.95);
+    transition: transform var(--transition-spring);
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-overlay.active .modal-card {
+    transform: translateY(0) scale(1);
+}
+
+/* Modal glow accent */
+.modal-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--clr-primary), transparent);
+}
+
+.modal-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: var(--space-xl);
+    text-transform: uppercase;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.result-item {
+    padding: var(--space-md);
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+}
+
+.result-value {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--clr-primary);
+    text-shadow: 0 0 15px var(--clr-primary-glow);
+}
+
+.result-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--clr-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: var(--space-xs);
+    font-family: var(--font-display);
+}
+
+.result-rating {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-xl);
+    letter-spacing: 1px;
+    color: var(--clr-primary);
+}
+
+.modal-restart {
+    margin: 0 auto;
+    padding: var(--space-md) var(--space-2xl);
+}

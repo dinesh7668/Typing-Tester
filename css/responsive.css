@@ -1,0 +1,171 @@
+/* ============================
+   NeonType — Responsive Styles
+   ============================ */
+
+/* Tablet */
+@media (max-width: 900px) {
+    :root {
+        --key-size: 38px;
+        --key-gap: 4px;
+    }
+
+    .app-container {
+        padding: var(--space-md);
+        gap: var(--space-md);
+    }
+
+    .app-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .logo {
+        justify-content: center;
+    }
+
+    .header-controls {
+        justify-content: center;
+    }
+
+    .stats-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-value {
+        font-size: 1.6rem;
+    }
+
+    .typing-display {
+        font-size: 1.15rem;
+        line-height: 2;
+    }
+
+    .typing-card {
+        padding: var(--space-lg);
+    }
+
+    .key[data-key="Backspace"] { min-width: calc(var(--key-size) * 1.5); }
+    .key[data-key="Tab"] { min-width: calc(var(--key-size) * 1.3); }
+    .key[data-key="CapsLock"] { min-width: calc(var(--key-size) * 1.5); }
+    .key[data-key="Enter"] { min-width: calc(var(--key-size) * 1.8); }
+    .key[data-key="ShiftLeft"],
+    .key[data-key="ShiftRight"] { min-width: calc(var(--key-size) * 2); }
+    .key[data-key="Space"] { min-width: calc(var(--key-size) * 5); }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    :root {
+        --key-size: 28px;
+        --key-gap: 3px;
+        --key-radius: 5px;
+    }
+
+    .app-container {
+        padding: var(--space-sm);
+        gap: var(--space-sm);
+    }
+
+    .logo h1 {
+        font-size: 1.1rem;
+    }
+
+    .header-controls {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .difficulty-selector,
+    .time-selector {
+        justify-content: center;
+    }
+
+    .diff-btn, .time-btn {
+        padding: 5px 10px;
+        font-size: 0.65rem;
+    }
+
+    .stats-panel {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-sm);
+    }
+
+    .stat-card {
+        padding: var(--space-md) var(--space-sm);
+    }
+
+    .stat-value {
+        font-size: 1.3rem;
+    }
+
+    .stat-label {
+        font-size: 0.65rem;
+    }
+
+    .typing-card {
+        padding: var(--space-md);
+    }
+
+    .typing-display {
+        font-size: 1rem;
+        line-height: 1.9;
+        min-height: 90px;
+    }
+
+    .keyboard-card {
+        padding: var(--space-sm);
+    }
+
+    .key {
+        font-size: 0.55rem;
+        height: 32px;
+    }
+
+    .key[data-key="Backspace"] { min-width: calc(var(--key-size) * 1.3); }
+    .key[data-key="Tab"] { min-width: calc(var(--key-size) * 1.2); }
+    .key[data-key="CapsLock"] { min-width: calc(var(--key-size) * 1.3); }
+    .key[data-key="Enter"] { min-width: calc(var(--key-size) * 1.5); }
+    .key[data-key="ShiftLeft"],
+    .key[data-key="ShiftRight"] { min-width: calc(var(--key-size) * 1.6); }
+    .key[data-key="Space"] { min-width: calc(var(--key-size) * 4); }
+    .key[data-key="ControlLeft"],
+    .key[data-key="ControlRight"],
+    .key[data-key="AltLeft"],
+    .key[data-key="AltRight"],
+    .key[data-key="MetaLeft"] { min-width: var(--key-size); font-size: 0.5rem; }
+
+    .ctrl-btn {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.75rem;
+    }
+
+    .modal-card {
+        padding: var(--space-xl);
+    }
+
+    .result-value {
+        font-size: 1.4rem;
+    }
+
+    .modal-title {
+        font-size: 1.2rem;
+    }
+}
+
+/* Very Small */
+@media (max-width: 400px) {
+    :root {
+        --key-size: 24px;
+        --key-gap: 2px;
+    }
+
+    .key {
+        font-size: 0.5rem;
+        height: 28px;
+    }
+
+    .typing-display {
+        font-size: 0.9rem;
+    }
+}

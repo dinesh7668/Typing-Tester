@@ -1,0 +1,161 @@
+/* ============================
+   NeonType — Virtual Keyboard Styles
+   ============================ */
+
+.keyboard-section {
+    animation: fadeSlideUp 0.6s ease 0.3s both;
+}
+
+.keyboard-card {
+    background: var(--clr-bg-glass);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    overflow: hidden;
+}
+
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--key-gap);
+}
+
+.keyboard-row {
+    display: flex;
+    gap: var(--key-gap);
+    justify-content: center;
+}
+
+/* Key Base */
+.key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--key-size);
+    height: var(--key-size);
+    padding: 0 6px;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--clr-text-dim);
+    background: var(--clr-bg-card);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--key-radius);
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.12s ease;
+    transform: translateY(0);
+}
+
+/* Key inner glow layer */
+.key::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, var(--clr-primary-glow), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+}
+
+/* Key press animation */
+.key.pressed {
+    transform: translateY(2px) scale(0.96);
+    color: var(--clr-primary);
+    border-color: var(--clr-primary);
+    background: rgba(255, 46, 46, 0.12);
+    box-shadow: 
+        0 0 15px rgba(255, 46, 46, 0.3),
+        inset 0 0 15px rgba(255, 46, 46, 0.1);
+}
+
+.key.pressed::before {
+    opacity: 0.5;
+}
+
+/* Key hover */
+.key:hover {
+    color: var(--clr-text);
+    border-color: rgba(255, 46, 46, 0.25);
+    background: var(--clr-bg-card-hover);
+}
+
+/* Special Keys */
+.key[data-key="Backspace"] {
+    min-width: calc(var(--key-size) * 2 + var(--key-gap));
+    font-size: 0.65rem;
+}
+
+.key[data-key="Tab"] {
+    min-width: calc(var(--key-size) * 1.5 + var(--key-gap));
+    font-size: 0.65rem;
+}
+
+.key[data-key="CapsLock"] {
+    min-width: calc(var(--key-size) * 1.75 + var(--key-gap));
+    font-size: 0.65rem;
+}
+
+.key[data-key="Enter"] {
+    min-width: calc(var(--key-size) * 2.25 + var(--key-gap));
+    font-size: 0.65rem;
+}
+
+.key[data-key="ShiftLeft"],
+.key[data-key="ShiftRight"] {
+    min-width: calc(var(--key-size) * 2.5 + var(--key-gap));
+    font-size: 0.65rem;
+}
+
+.key[data-key="Space"] {
+    min-width: calc(var(--key-size) * 7 + var(--key-gap) * 6);
+    font-size: 0.65rem;
+}
+
+.key[data-key="ControlLeft"],
+.key[data-key="ControlRight"],
+.key[data-key="AltLeft"],
+.key[data-key="AltRight"],
+.key[data-key="MetaLeft"] {
+    min-width: calc(var(--key-size) * 1.3);
+    font-size: 0.6rem;
+}
+
+/* Next expected key highlight */
+.key.next-key {
+    border-color: rgba(255, 46, 46, 0.4);
+    animation: keyHint 1.5s ease-in-out infinite;
+}
+
+@keyframes keyHint {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 46, 46, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 46, 46, 0.25);
+    }
+}
+
+/* Ripple effect on keypress */
+.key .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--clr-primary-glow), transparent 70%);
+    transform: scale(0);
+    animation: ripple 0.5s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
